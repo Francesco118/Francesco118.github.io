@@ -18,7 +18,6 @@
     --text: #e2eaf4;
     --muted: #7a95b0;
     --dim: #3d5166;
-    --danger: #f97316;
   }
 
   html { scroll-behavior: smooth; }
@@ -32,7 +31,7 @@
     overflow-x: hidden;
   }
 
-  /* ─── NAV ─── */
+  /* ── NAV ── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -44,6 +43,7 @@
     background: rgba(10,14,20,0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
+    gap: 1rem;
   }
 
   .nav-logo {
@@ -52,16 +52,17 @@
     color: var(--accent);
     letter-spacing: 0.05em;
     text-decoration: none;
+    flex-shrink: 0;
   }
 
   .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 1.8rem;
     list-style: none;
   }
 
   .nav-links a {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 400;
     color: var(--muted);
     text-decoration: none;
@@ -72,7 +73,30 @@
 
   .nav-links a:hover { color: var(--accent); }
 
-  /* ─── HERO ─── */
+  /* ── LANGUAGE SWITCHER ── */
+  .lang-switcher {
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .lang-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .lang-btn.active { background: var(--accent); color: #0a0e14; border-color: var(--accent); }
+
+  /* ── HERO ── */
   #hero {
     min-height: 100vh;
     display: flex;
@@ -80,6 +104,7 @@
     padding: 7rem 3rem 4rem;
     position: relative;
     overflow: hidden;
+    max-width: 100%;
   }
 
   .hero-grid-bg {
@@ -94,8 +119,7 @@
 
   .hero-glow {
     position: absolute;
-    width: 600px;
-    height: 600px;
+    width: 600px; height: 600px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
     top: 50%; left: 30%;
@@ -103,10 +127,7 @@
     pointer-events: none;
   }
 
-  .hero-content {
-    position: relative;
-    max-width: 800px;
-  }
+  .hero-content { position: relative; max-width: 800px; }
 
   .hero-label {
     font-family: 'DM Mono', monospace;
@@ -123,8 +144,7 @@
   .hero-label::before {
     content: '';
     display: inline-block;
-    width: 32px;
-    height: 1px;
+    width: 32px; height: 1px;
     background: var(--accent);
   }
 
@@ -138,10 +158,7 @@
     margin-bottom: 1rem;
   }
 
-  h1 em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  h1 em { font-style: italic; color: var(--accent); }
 
   .hero-subtitle {
     font-size: 1.1rem;
@@ -151,11 +168,7 @@
     line-height: 1.6;
   }
 
-  .hero-cta {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
 
   .btn {
     display: inline-flex;
@@ -172,22 +185,12 @@
     border: none;
   }
 
-  .btn-primary {
-    background: var(--accent);
-    color: #0a0e14;
-  }
-
+  .btn-primary { background: var(--accent); color: #0a0e14; }
   .btn-primary:hover { background: #7dd3fc; transform: translateY(-1px); }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ─── SECTIONS ─── */
+  /* ── SECTIONS ── */
   section {
     max-width: 1100px;
     margin: 0 auto;
@@ -209,8 +212,7 @@
   .section-label::before {
     content: '';
     display: inline-block;
-    width: 24px;
-    height: 1px;
+    width: 24px; height: 1px;
     background: var(--accent);
   }
 
@@ -223,7 +225,7 @@
     margin-bottom: 3rem;
   }
 
-  /* ─── ABOUT ─── */
+  /* ── ABOUT ── */
   #about { background: var(--surface); }
   #about-inner {
     max-width: 1100px;
@@ -235,23 +237,10 @@
     align-items: start;
   }
 
-  .about-text p {
-    color: var(--muted);
-    margin-bottom: 1.2rem;
-    font-size: 1rem;
-  }
+  .about-text p { color: var(--muted); margin-bottom: 1.2rem; font-size: 1rem; }
+  .about-text p strong { color: var(--text); font-weight: 500; }
 
-  .about-text p strong {
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  .langs {
-    margin-top: 2rem;
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
+  .langs { margin-top: 2rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
   .lang-tag {
     font-family: 'DM Mono', monospace;
@@ -272,26 +261,11 @@
     border: 1px solid var(--border);
   }
 
-  .stat {
-    background: var(--surface);
-    padding: 1.5rem;
-  }
+  .stat { background: var(--surface); padding: 1.5rem; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--accent); line-height: 1; margin-bottom: 0.25rem; }
+  .stat-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.03em; }
 
-  .stat-num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.5rem;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-
-  .stat-label {
-    font-size: 0.8rem;
-    color: var(--muted);
-    letter-spacing: 0.03em;
-  }
-
-  /* ─── SKILLS ─── */
+  /* ── SKILLS ── */
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -300,134 +274,43 @@
     border: 1px solid var(--border);
   }
 
-  .skill-card {
-    background: var(--surface);
-    padding: 2rem;
-    transition: background 0.2s;
-  }
-
+  .skill-card { background: var(--surface); padding: 2rem; transition: background 0.2s; }
   .skill-card:hover { background: var(--surface2); }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .skill-card h3 { font-size: 0.85rem; font-weight: 500; color: var(--text); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1rem; }
 
-  .skill-icon {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
+  .skill-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .skill-list li { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; line-height: 1.4; }
+  .skill-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent2); flex-shrink: 0; }
 
-  .skill-card h3 {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-
-  .skill-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .skill-list li {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .skill-list li::before {
-    content: '';
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--accent2);
-    flex-shrink: 0;
-  }
-
-  /* ─── EXPERIENCE ─── */
+  /* ── EXPERIENCE ── */
   #experience { background: var(--surface); }
-  #experience-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 6rem 3rem;
-  }
+  #experience-inner { max-width: 1100px; margin: 0 auto; padding: 6rem 3rem; }
 
-  .timeline {
-    position: relative;
-    padding-left: 2rem;
-    border-left: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  .timeline { position: relative; padding-left: 2rem; border-left: 1px solid var(--border); display: flex; flex-direction: column; }
 
-  .timeline-item {
-    position: relative;
-    padding: 0 0 3.5rem 2.5rem;
-  }
-
+  .timeline-item { position: relative; padding: 0 0 3.5rem 2.5rem; }
   .timeline-item:last-child { padding-bottom: 0; }
 
   .timeline-dot {
     position: absolute;
-    left: -2.6rem;
-    top: 0.4rem;
-    width: 10px;
-    height: 10px;
+    left: -2.6rem; top: 0.4rem;
+    width: 10px; height: 10px;
     border-radius: 50%;
     background: var(--accent);
     border: 2px solid var(--bg);
     box-shadow: 0 0 0 3px rgba(56,189,248,0.2);
   }
 
-  .timeline-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.73rem;
-    color: var(--accent2);
-    letter-spacing: 0.08em;
-    margin-bottom: 0.4rem;
-  }
+  .timeline-date { font-family: 'DM Mono', monospace; font-size: 0.73rem; color: var(--accent2); letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+  .timeline-item h3 { font-size: 1.05rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
+  .timeline-org { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; font-style: italic; }
 
-  .timeline-item h3 {
-    font-size: 1.05rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 0.2rem;
-  }
+  .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+  .timeline-bullets li { font-size: 0.9rem; color: var(--muted); display: flex; gap: 0.75rem; line-height: 1.5; }
+  .timeline-bullets li::before { content: '→'; color: var(--dim); flex-shrink: 0; margin-top: 0.05rem; }
 
-  .timeline-org {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
-    font-style: italic;
-  }
-
-  .timeline-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .timeline-bullets li {
-    font-size: 0.9rem;
-    color: var(--muted);
-    display: flex;
-    gap: 0.75rem;
-    line-height: 1.5;
-  }
-
-  .timeline-bullets li::before {
-    content: '→';
-    color: var(--dim);
-    flex-shrink: 0;
-    margin-top: 0.05rem;
-  }
-
-  /* ─── CERTIFICATIONS ─── */
+  /* ── CERTIFICATIONS ── */
   .certs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -436,142 +319,42 @@
     border: 1px solid var(--border);
   }
 
-  .cert-card {
-    background: var(--surface);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    transition: background 0.2s;
-  }
-
+  .cert-card { background: var(--surface); padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; transition: background 0.2s; }
   .cert-card:hover { background: var(--surface2); }
+  .cert-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; }
+  .cert-card h3 { font-size: 0.88rem; font-weight: 500; color: var(--text); line-height: 1.4; }
 
-  .cert-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--accent2);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .cert-card h3 {
-    font-size: 0.88rem;
-    font-weight: 500;
-    color: var(--text);
-    line-height: 1.4;
-  }
-
-  /* ─── EDUCATION ─── */
+  /* ── EDUCATION ── */
   #education { background: var(--surface); }
-  #education-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 6rem 3rem;
-  }
+  #education-inner { max-width: 1100px; margin: 0 auto; padding: 6rem 3rem; }
 
-  .edu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .edu-card {
-    background: var(--surface);
-    padding: 2rem;
-    transition: background 0.2s;
-  }
-
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .edu-card { background: var(--surface); padding: 2rem; transition: background 0.2s; }
   .edu-card:hover { background: var(--surface2); }
+  .edu-degree { font-size: 0.8rem; font-weight: 500; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .edu-card h3 { font-size: 1rem; font-weight: 500; color: var(--text); margin-bottom: 0.3rem; line-height: 1.3; }
+  .edu-school { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.2rem; }
+  .edu-date { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--dim); }
 
-  .edu-degree {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-
-  .edu-card h3 {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 0.3rem;
-    line-height: 1.3;
-  }
-
-  .edu-school {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-bottom: 0.2rem;
-  }
-
-  .edu-date {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--dim);
-  }
-
-  /* ─── CONTACT ─── */
-  #contact {
-    text-align: center;
-    padding: 7rem 3rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .contact-glow {
-    position: absolute;
-    width: 500px;
-    height: 300px;
-    background: radial-gradient(ellipse, rgba(34,211,168,0.06) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
-
+  /* ── CONTACT ── */
+  #contact { text-align: center; padding: 7rem 3rem; position: relative; overflow: hidden; max-width: 100%; }
+  .contact-glow { position: absolute; width: 500px; height: 300px; background: radial-gradient(ellipse, rgba(34,211,168,0.06) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
   #contact .section-label { justify-content: center; }
   #contact .section-label::before { display: none; }
   #contact h2 { margin-bottom: 1rem; }
+  .contact-sub { color: var(--muted); font-size: 1rem; margin-bottom: 2.5rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; position: relative; }
 
-  .contact-sub {
-    color: var(--muted);
-    font-size: 1rem;
-    margin-bottom: 2.5rem;
-  }
+  /* ── FOOTER ── */
+  footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--dim); }
 
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    position: relative;
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer p {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--dim);
-  }
-
-  /* ─── MOBILE ─── */
+  /* ── MOBILE ── */
   @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.2rem; }
-    .nav-links a { font-size: 0.72rem; }
-    #hero { padding: 6rem 1.5rem 3rem; }
+    nav { padding: 1rem 1.2rem; flex-wrap: wrap; }
+    .nav-links { gap: 1rem; order: 3; width: 100%; }
+    .nav-links a { font-size: 0.7rem; }
+    #hero { padding: 8rem 1.5rem 3rem; }
     section { padding: 4rem 1.5rem; }
     #about-inner, #experience-inner, #education-inner { padding: 4rem 1.5rem; }
     #about-inner { grid-template-columns: 1fr; gap: 3rem; }
@@ -580,32 +363,27 @@
     h1 { font-size: 2.8rem; }
   }
 
-  /* ─── ANIMATIONS ─── */
+  /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .hero-label { animation: fadeUp 0.5s ease both; }
-  h1 { animation: fadeUp 0.6s 0.1s ease both; }
-  .hero-subtitle { animation: fadeUp 0.6s 0.2s ease both; }
-  .hero-cta { animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-label   { animation: fadeUp 0.5s ease both; }
+  h1            { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-subtitle{ animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-cta     { animation: fadeUp 0.6s 0.3s ease both; }
 
-  /* terminal cursor blink */
   .cursor {
     display: inline-block;
-    width: 2px;
-    height: 1em;
+    width: 2px; height: 1em;
     background: var(--accent);
     margin-left: 3px;
     vertical-align: middle;
     animation: blink 1s step-end infinite;
   }
 
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 </style>
 </head>
 <body>
@@ -614,30 +392,35 @@
 <nav>
   <a href="#hero" class="nav-logo">JC./</a>
   <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#certifications">Certs</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#about"          data-i18n="nav.about">About</a></li>
+    <li><a href="#skills"         data-i18n="nav.skills">Skills</a></li>
+    <li><a href="#experience"     data-i18n="nav.experience">Experience</a></li>
+    <li><a href="#certifications" data-i18n="nav.certs">Certs</a></li>
+    <li><a href="#education"      data-i18n="nav.education">Education</a></li>
+    <li><a href="#contact"        data-i18n="nav.contact">Contact</a></li>
   </ul>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn"        onclick="setLang('pt')">PT</button>
+    <button class="lang-btn"        onclick="setLang('es')">ES</button>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section id="hero" style="max-width:100%; padding-top:7rem; padding-bottom:4rem;">
+<section id="hero">
   <div class="hero-grid-bg"></div>
   <div class="hero-glow"></div>
   <div class="hero-content">
-    <div class="hero-label">Cybersecurity Analyst<span class="cursor"></span></div>
+    <div class="hero-label" data-i18n="hero.label">Cybersecurity Analyst<span class="cursor"></span></div>
     <h1>Johannes<br><em>Castellano</em></h1>
-    <p class="hero-subtitle">
+    <p class="hero-subtitle" data-i18n="hero.subtitle">
       Protecting networks and digital infrastructure through threat detection,
       SIEM operations, and risk assessment — with hands-on experience across
       enterprise environments.
     </p>
     <div class="hero-cta">
-      <a href="mailto:johannes.francesco@outlook.com" class="btn btn-primary">Get in touch</a>
-      <a href="#experience" class="btn btn-outline">View experience</a>
+      <a href="mailto:johannes.francesco@outlook.com" class="btn btn-primary" data-i18n="hero.cta1">Get in touch</a>
+      <a href="#experience" class="btn btn-outline" data-i18n="hero.cta2">View experience</a>
     </div>
   </div>
 </section>
@@ -646,37 +429,25 @@
 <div id="about">
   <div id="about-inner">
     <div class="about-text">
-      <div class="section-label">About</div>
-      <h2 style="font-size:2rem; margin-bottom:1.5rem;">Who I am</h2>
-      <p>I'm an aspiring Cybersecurity Analyst based in <strong>Salt Lake City, Utah</strong>, currently completing a Bachelor's in Cybersecurity at Ensign College.</p>
-      <p>My experience spans <strong>SOC operations</strong>, network monitoring, datacenter management, and tier-2 technical support — with a focus on building systems that are resilient, well-documented, and secure.</p>
-      <p>Originally from <strong>São Paulo, Brazil</strong>, I bring a multicultural perspective and fluency in Portuguese, English, and Spanish to every team I join.</p>
-      <p>Outside of work, I've led teams of missionaries across Brazil, served as a ward clerk, and competed in the National Cyber League.</p>
+      <div class="section-label" data-i18n="nav.about">About</div>
+      <h2 style="font-size:2rem; margin-bottom:1.5rem;" data-i18n="about.heading">Who I am</h2>
+      <p data-i18n="about.p1">I'm an aspiring Cybersecurity Analyst based in <strong>Salt Lake City, Utah</strong>, currently completing a Bachelor's in Cybersecurity at Ensign College.</p>
+      <p data-i18n="about.p2">My experience spans <strong>SOC operations</strong>, network monitoring, datacenter management, and tier-2 technical support — with a focus on building systems that are resilient, well-documented, and secure.</p>
+      <p data-i18n="about.p3">Originally from <strong>São Paulo, Brazil</strong>, I bring a multicultural perspective and fluency in Portuguese, English, and Spanish to every team I join.</p>
+      <p data-i18n="about.p4">Outside of work, I've led teams of missionaries across Brazil, served as a ward clerk, and competed in the National Cyber League.</p>
       <div class="langs">
-        <span class="lang-tag">Portuguese — Native</span>
-        <span class="lang-tag">English — Professional</span>
-        <span class="lang-tag">Spanish — Fluent</span>
-        <span class="lang-tag">Italian — Elementary</span>
+        <span class="lang-tag" data-i18n="about.lang1">Portuguese — Native</span>
+        <span class="lang-tag" data-i18n="about.lang2">English — Professional</span>
+        <span class="lang-tag" data-i18n="about.lang3">Spanish — Fluent</span>
+        <span class="lang-tag" data-i18n="about.lang4">Italian — Elementary</span>
       </div>
     </div>
     <div>
       <div class="stats-grid">
-        <div class="stat">
-          <div class="stat-num">3+</div>
-          <div class="stat-label">Years in IT &amp; Cybersecurity</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">$500k</div>
-          <div class="stat-label">IT assets managed</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">49</div>
-          <div class="stat-label">Dell servers managed</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">3</div>
-          <div class="stat-label">Languages spoken</div>
-        </div>
+        <div class="stat"><div class="stat-num">3+</div><div class="stat-label" data-i18n="about.stat1">Years in IT &amp; Cybersecurity</div></div>
+        <div class="stat"><div class="stat-num">$500k</div><div class="stat-label" data-i18n="about.stat2">IT assets managed</div></div>
+        <div class="stat"><div class="stat-num">49</div><div class="stat-label" data-i18n="about.stat3">Dell servers managed</div></div>
+        <div class="stat"><div class="stat-num">3</div><div class="stat-label" data-i18n="about.stat4">Languages spoken</div></div>
       </div>
     </div>
   </div>
@@ -684,79 +455,64 @@
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="section-label">Skills</div>
-  <h2>Tools &amp; expertise</h2>
+  <div class="section-label" data-i18n="nav.skills">Skills</div>
+  <h2 data-i18n="skills.heading">Tools &amp; expertise</h2>
   <div class="skills-grid">
     <div class="skill-card">
       <div class="skill-icon">🛡</div>
-      <h3>Cybersecurity &amp; SIEM</h3>
+      <h3 data-i18n="skills.cat1.title">Cybersecurity &amp; SIEM</h3>
       <ul class="skill-list">
-        <li>Wazuh SIEM</li>
-        <li>Suricata (HIDS/NIDS)</li>
-        <li>MITRE ATT&amp;CK framework</li>
-        <li>CVE tracking</li>
-        <li>Incident response</li>
-        <li>Risk assessment</li>
-        <li>Playbook creation</li>
+        <li>Wazuh SIEM</li><li>Suricata (HIDS/NIDS)</li><li>MITRE ATT&amp;CK</li>
+        <li>CVE tracking</li><li data-i18n="skills.cat1.ir">Incident response</li>
+        <li data-i18n="skills.cat1.ra">Risk assessment</li><li data-i18n="skills.cat1.pb">Playbook creation</li>
       </ul>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🌐</div>
-      <h3>Networks &amp; Systems</h3>
+      <h3 data-i18n="skills.cat2.title">Networks &amp; Systems</h3>
       <ul class="skill-list">
-        <li>DNS, DHCP, Active Directory</li>
-        <li>SSL / SNMP monitoring</li>
-        <li>Windows Server</li>
-        <li>Linux (RHEL, Proxmox)</li>
-        <li>VPN &amp; network connectivity</li>
-        <li>Meraki remote troubleshooting</li>
+        <li>DNS, DHCP, Active Directory</li><li>SSL / SNMP monitoring</li>
+        <li>Windows Server</li><li>Linux (RHEL, Proxmox)</li>
+        <li data-i18n="skills.cat2.vpn">VPN &amp; network connectivity</li>
+        <li>Meraki</li>
       </ul>
     </div>
     <div class="skill-card">
       <div class="skill-icon">⚙️</div>
-      <h3>Infrastructure &amp; Automation</h3>
+      <h3 data-i18n="skills.cat3.title">Infrastructure &amp; Automation</h3>
       <ul class="skill-list">
-        <li>Terraform</li>
-        <li>Packer &amp; Ansible</li>
-        <li>Kubernetes</li>
-        <li>Telegraf</li>
-        <li>Lansweeper</li>
-        <li>Power BI dashboards</li>
+        <li>Terraform</li><li>Packer &amp; Ansible</li><li>Kubernetes</li>
+        <li>Telegraf</li><li>Lansweeper</li><li>Power BI</li>
       </ul>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🖥</div>
-      <h3>Support &amp; ITSM</h3>
+      <h3 data-i18n="skills.cat4.title">Support &amp; ITSM</h3>
       <ul class="skill-list">
-        <li>ServiceNow</li>
-        <li>TeamDynamix</li>
-        <li>Jira</li>
-        <li>SharePoint documentation</li>
-        <li>SOP &amp; KB authoring</li>
-        <li>Tier-2 technical support</li>
+        <li>ServiceNow</li><li>TeamDynamix</li><li>Jira</li>
+        <li>SharePoint</li>
+        <li data-i18n="skills.cat4.sop">SOP &amp; KB authoring</li>
+        <li data-i18n="skills.cat4.t2">Tier-2 technical support</li>
       </ul>
     </div>
     <div class="skill-card">
       <div class="skill-icon">💻</div>
-      <h3>Development &amp; Data</h3>
+      <h3 data-i18n="skills.cat5.title">Development &amp; Data</h3>
       <ul class="skill-list">
-        <li>HTML &amp; CSS</li>
-        <li>SQL &amp; PostgreSQL</li>
-        <li>WordPress &amp; LeadLovers</li>
-        <li>Canva &amp; content creation</li>
-        <li>Delphi (basic)</li>
+        <li>HTML &amp; CSS</li><li>SQL &amp; PostgreSQL</li>
+        <li>WordPress</li><li>Canva</li><li>Delphi</li>
       </ul>
     </div>
     <div class="skill-card">
       <div class="skill-icon">🤝</div>
-      <h3>Soft Skills</h3>
+      <h3 data-i18n="skills.cat6.title">Soft Skills</h3>
       <ul class="skill-list">
-        <li>Team leadership</li>
-        <li>Customer service</li>
-        <li>Technical documentation</li>
-        <li>Cross-team collaboration</li>
-        <li>Decision-making</li>
-        <li>Multilingual communication</li>
+        <li data-i18n="skills.cat6.lead">Team leadership</li>
+        <li data-i18n="skills.cat6.cs">Customer service</li>
+        <li data-i18n="skills.cat6.doc">Technical documentation</li>
+        <li data-i18n="skills.cat6.col">Cross-team collaboration</li>
+        <li data-i18n="skills.cat6.dm">Decision-making</li>
+        <li data-i18n="skills.cat6.ml">Multilingual communication</li>
       </ul>
     </div>
   </div>
@@ -765,83 +521,83 @@
 <!-- EXPERIENCE -->
 <div id="experience">
   <div id="experience-inner">
-    <div class="section-label">Experience</div>
-    <h2>Work history</h2>
+    <div class="section-label" data-i18n="nav.experience">Experience</div>
+    <h2 data-i18n="exp.heading">Work history</h2>
     <div class="timeline">
 
       <div class="timeline-item">
         <div class="timeline-dot"></div>
-        <div class="timeline-date">Jun 2025 — Present</div>
-        <h3>Technical Support Specialist (Intern)</h3>
+        <div class="timeline-date">Jun 2025 — <span data-i18n="exp.present">Present</span></div>
+        <h3 data-i18n="exp.job1.title">Technical Support Specialist (Intern)</h3>
         <div class="timeline-org">Seminaries &amp; Institutes — The Church of Jesus Christ of Latter-day Saints · Salt Lake City, UT</div>
         <ul class="timeline-bullets">
-          <li>Delivered tier-2 technical support via tickets, email, phone, and community forums for Seminary &amp; Institute software products</li>
-          <li>Collaborated with product managers and developers to relay user feedback, report bugs, and suggest improvements</li>
-          <li>Created and maintained support content on the S&amp;I Support website to enhance user experience</li>
-          <li>Utilized software development tracking systems to contribute to continuous product improvement</li>
+          <li data-i18n="exp.job1.b1">Delivered tier-2 technical support via tickets, email, phone, and forums for S&amp;I software products</li>
+          <li data-i18n="exp.job1.b2">Collaborated with PMs and developers to relay feedback, report bugs, and suggest improvements</li>
+          <li data-i18n="exp.job1.b3">Created and maintained support content on the S&amp;I Support website</li>
+          <li data-i18n="exp.job1.b4">Used software development tracking systems to contribute to product improvement</li>
         </ul>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-date">Apr 2025 — Aug 2025</div>
-        <h3>Associate Lab Manager — NOC Technician</h3>
+        <h3 data-i18n="exp.job2.title">Associate Lab Manager — NOC Technician</h3>
         <div class="timeline-org">TechLab Cloud Services, Ensign College · Salt Lake City, UT</div>
         <ul class="timeline-bullets">
-          <li>Monitored and maintained Linux/Windows servers; configured DNS, DHCP, and Active Directory</li>
-          <li>Built infrastructure automation with Terraform, Packer, and Ansible</li>
-          <li>Managed $500k in IT assets including 49 Dell servers; authored SOPs and KB articles</li>
-          <li>Supported SIEM operations (Wazuh); contributed to AI and Kubernetes projects</li>
-          <li>Created Power BI dashboards for executive reporting and monthly server performance reports</li>
+          <li data-i18n="exp.job2.b1">Monitored and maintained Linux/Windows servers; configured DNS, DHCP, and Active Directory</li>
+          <li data-i18n="exp.job2.b2">Built infrastructure automation with Terraform, Packer, and Ansible</li>
+          <li data-i18n="exp.job2.b3">Managed $500k in IT assets including 49 Dell servers; authored SOPs and KB articles</li>
+          <li data-i18n="exp.job2.b4">Supported SIEM operations (Wazuh); contributed to AI and Kubernetes projects</li>
+          <li data-i18n="exp.job2.b5">Created Power BI dashboards for executive reporting</li>
         </ul>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-date">Aug 2024 — Apr 2025</div>
-        <h3>Global Support Tech Generalist</h3>
+        <h3 data-i18n="exp.job3.title">Global Support Tech Generalist</h3>
         <div class="timeline-org">The Church of Jesus Christ of Latter-day Saints · Salt Lake City, UT</div>
         <ul class="timeline-bullets">
-          <li>Served as the first point of contact for global users via phone, email, and live chat</li>
-          <li>Troubleshot network connectivity, VPN, and IP address configurations for remote employees</li>
-          <li>Utilized Active Directory to restore user access; maintained detailed CRM records</li>
-          <li>Escalated complex issues to specialized teams and developed productive customer relationships</li>
+          <li data-i18n="exp.job3.b1">First point of contact for global users via phone, email, and live chat</li>
+          <li data-i18n="exp.job3.b2">Troubleshot network connectivity, VPN, and IP configuration for remote employees</li>
+          <li data-i18n="exp.job3.b3">Used Active Directory to restore user access; maintained detailed CRM records</li>
+          <li data-i18n="exp.job3.b4">Escalated complex issues and developed productive customer relationships</li>
         </ul>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-date">Nov 2023 — Aug 2024</div>
-        <h3>Associate Lab Manager — SOC Practitioner</h3>
+        <h3 data-i18n="exp.job4.title">Associate Lab Manager — SOC Practitioner</h3>
         <div class="timeline-org">TechLab Cloud Services, Ensign College · Salt Lake City, UT</div>
         <ul class="timeline-bullets">
-          <li>Monitored and managed SIEM systems (Wazuh) to detect and respond to cybersecurity threats</li>
-          <li>Created filters, playbooks, and incident reports for suspicious activities</li>
-          <li>Installed and configured Suricata and Wazuh for HIDS/NIDS network security monitoring</li>
-          <li>Coordinated real incident response with supervisors and technical teams</li>
-          <li>Developed response plans and contributed to continuous security improvements</li>
+          <li data-i18n="exp.job4.b1">Monitored SIEM systems (Wazuh) to detect and respond to cybersecurity threats</li>
+          <li data-i18n="exp.job4.b2">Created filters, playbooks, and incident reports for suspicious activities</li>
+          <li data-i18n="exp.job4.b3">Installed and configured Suricata and Wazuh for HIDS/NIDS monitoring</li>
+          <li data-i18n="exp.job4.b4">Coordinated real incident response with supervisors and technical teams</li>
+          <li data-i18n="exp.job4.b5">Developed response plans and contributed to continuous security improvements</li>
         </ul>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-date">Jan 2022 — Nov 2022</div>
-        <h3>IT Generalist Intern</h3>
+        <h3 data-i18n="exp.job5.title">IT Generalist Intern</h3>
         <div class="timeline-org">PontefliX · São Paulo, Brazil</div>
         <ul class="timeline-bullets">
-          <li>Provided technical support covering web development and database maintenance (SQL, PostgreSQL)</li>
-          <li>Assisted users with HTML/CSS challenges and Delphi programming issues</li>
+          <li data-i18n="exp.job5.b1">Provided technical support covering web development and database maintenance (SQL, PostgreSQL)</li>
+          <li data-i18n="exp.job5.b2">Assisted users with HTML/CSS challenges and Delphi programming issues</li>
         </ul>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-dot" style="background: var(--dim);"></div>
         <div class="timeline-date">Jan 2019 — Jan 2021</div>
-        <h3>Full-Time Missionary &amp; Team Leader</h3>
+        <h3 data-i18n="exp.job6.title">Full-Time Missionary &amp; Team Leader</h3>
         <div class="timeline-org">Brazil Curitiba South Mission · Brazil</div>
         <ul class="timeline-bullets">
-          <li>Led teams as District Leader, Zone Leader, and Assistant to the Mission President</li>
-          <li>Managed logistics, immigration, and health coordination for missionaries</li>
+          <li data-i18n="exp.job6.b1">Led teams as District Leader, Zone Leader, and Assistant to the Mission President</li>
+          <li data-i18n="exp.job6.b2">Managed logistics, immigration, and health coordination for missionaries</li>
         </ul>
       </div>
 
@@ -851,79 +607,49 @@
 
 <!-- CERTIFICATIONS -->
 <section id="certifications">
-  <div class="section-label">Certifications</div>
-  <h2>Credentials</h2>
+  <div class="section-label" data-i18n="nav.certs">Certifications</div>
+  <h2 data-i18n="certs.heading">Credentials</h2>
   <div class="certs-grid">
-    <div class="cert-card">
-      <div class="cert-badge">TestOut / CompTIA</div>
-      <h3>Security Pro</h3>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">TestOut / CompTIA</div>
-      <h3>Network Pro</h3>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">TestOut / CompTIA</div>
-      <h3>Linux Pro</h3>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">TestOut / CompTIA</div>
-      <h3>Hybrid Server Pro: Core</h3>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">TestOut / CompTIA</div>
-      <h3>Client Pro (Windows)</h3>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">TestOut / CompTIA</div>
-      <h3>PC Pro (Hardware)</h3>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">CompTIA CySA+</div>
-      <h3>Cert Prep: Compliance &amp; Assessment</h3>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">SSCP</div>
-      <h3>Cert Prep: Incident Response &amp; Recovery</h3>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">LinkedIn Learning</div>
-      <h3>Foundations of Detection Engineering</h3>
-    </div>
-    <div class="cert-card">
-      <div class="cert-badge">NCL</div>
-      <h3>NCL Fall 2023 — Team Game</h3>
-    </div>
+    <div class="cert-card"><div class="cert-badge">TestOut / CompTIA</div><h3>Security Pro</h3></div>
+    <div class="cert-card"><div class="cert-badge">TestOut / CompTIA</div><h3>Network Pro</h3></div>
+    <div class="cert-card"><div class="cert-badge">TestOut / CompTIA</div><h3>Linux Pro</h3></div>
+    <div class="cert-card"><div class="cert-badge">TestOut / CompTIA</div><h3>Hybrid Server Pro: Core</h3></div>
+    <div class="cert-card"><div class="cert-badge">TestOut / CompTIA</div><h3>Client Pro (Windows)</h3></div>
+    <div class="cert-card"><div class="cert-badge">TestOut / CompTIA</div><h3>PC Pro (Hardware)</h3></div>
+    <div class="cert-card"><div class="cert-badge">CompTIA CySA+</div><h3 data-i18n="certs.cysa">Cert Prep: Compliance &amp; Assessment</h3></div>
+    <div class="cert-card"><div class="cert-badge">SSCP</div><h3 data-i18n="certs.sscp">Cert Prep: Incident Response &amp; Recovery</h3></div>
+    <div class="cert-card"><div class="cert-badge">LinkedIn Learning</div><h3 data-i18n="certs.de">Foundations of Detection Engineering</h3></div>
+    <div class="cert-card"><div class="cert-badge">NCL</div><h3>NCL Fall 2023 — Team Game</h3></div>
   </div>
 </section>
 
 <!-- EDUCATION -->
 <div id="education">
   <div id="education-inner">
-    <div class="section-label">Education</div>
-    <h2>Academic background</h2>
+    <div class="section-label" data-i18n="nav.education">Education</div>
+    <h2 data-i18n="edu.heading">Academic background</h2>
     <div class="edu-grid">
       <div class="edu-card">
-        <div class="edu-degree">Bachelor of Applied Science</div>
+        <div class="edu-degree" data-i18n="edu.deg1">Bachelor of Applied Science</div>
         <h3>Cybersecurity</h3>
         <div class="edu-school">Ensign College · Salt Lake City, UT</div>
         <div class="edu-date">Apr 2023 — Dec 2025</div>
       </div>
       <div class="edu-card">
-        <div class="edu-degree">Associate of Applied Science</div>
+        <div class="edu-degree" data-i18n="edu.deg2">Associate of Applied Science</div>
         <h3>Information Technology</h3>
         <div class="edu-school">Ensign College · Salt Lake City, UT</div>
         <div class="edu-date">Apr 2023 — Dec 2024</div>
       </div>
       <div class="edu-card">
-        <div class="edu-degree">Certificate</div>
-        <h3>Technical Support Engineer</h3>
+        <div class="edu-degree" data-i18n="edu.deg3">Certificate</div>
+        <h3 data-i18n="edu.cert">Technical Support Engineer</h3>
         <div class="edu-school">Ensign College · Salt Lake City, UT</div>
         <div class="edu-date">Apr 2023 — Apr 2024</div>
       </div>
       <div class="edu-card">
-        <div class="edu-degree">Bachelor of Business Administration</div>
-        <h3>Business Administration &amp; Management</h3>
+        <div class="edu-degree" data-i18n="edu.deg4">Bachelor of Business Administration</div>
+        <h3 data-i18n="edu.bba">Business Administration &amp; Management</h3>
         <div class="edu-school">Ibmec · São Paulo, Brazil</div>
         <div class="edu-date">Jan 2021 — Dec 2021</div>
       </div>
@@ -932,21 +658,15 @@
 </div>
 
 <!-- CONTACT -->
-<section id="contact" style="max-width:100%;">
+<section id="contact">
   <div class="contact-glow"></div>
-  <div class="section-label">Contact</div>
-  <h2>Let's connect</h2>
-  <p class="contact-sub">Open to part-time cybersecurity opportunities and collaborations.</p>
+  <div class="section-label" data-i18n="nav.contact">Contact</div>
+  <h2 data-i18n="contact.heading">Let's connect</h2>
+  <p class="contact-sub" data-i18n="contact.sub">Open to part-time cybersecurity opportunities and collaborations.</p>
   <div class="contact-links">
-    <a href="mailto:-------"- class="btn btn-primary">
-      ✉ --------
-    </a>
-    <a href="https://www.linkedin.com/in/johannesc-42909811b" target="_blank" class="btn btn-outline">
-      LinkedIn Profile
-    </a>
-    <a href="tel:-----------" class="btn btn-outline">
-      --------
-    </a>
+    <a href="mailto:johannes.francesco@outlook.com" class="btn btn-primary" data-i18n="contact.email">✉ johannes.francesco@outlook.com</a>
+    <a href="https://www.linkedin.com/in/johannesc-42909811b" target="_blank" class="btn btn-outline" data-i18n="contact.linkedin">LinkedIn Profile</a>
+    <a href="tel:+18017061087" class="btn btn-outline">+1 (801) 706-1087</a>
   </div>
 </section>
 
@@ -956,22 +676,365 @@
   <p>Salt Lake City, Utah · Cybersecurity Analyst</p>
 </footer>
 
+<!-- ═══════════════════════════════════════════════
+     TRANSLATIONS
+     To add a new language:
+       1. Copy one language object below (e.g. "en")
+       2. Paste it with a new key (e.g. "fr")
+       3. Translate every value string
+       4. Add a <button> in the lang-switcher above
+     ═══════════════════════════════════════════════ -->
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
+const translations = {
 
-  document.querySelectorAll('.skill-card, .timeline-item, .cert-card, .edu-card, .stat').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(16px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
+  en: {
+    "nav.about":      "About",
+    "nav.skills":     "Skills",
+    "nav.experience": "Experience",
+    "nav.certs":      "Certs",
+    "nav.education":  "Education",
+    "nav.contact":    "Contact",
+
+    "hero.label":   "Cybersecurity Analyst",
+    "hero.subtitle":"Protecting networks and digital infrastructure through threat detection, SIEM operations, and risk assessment — with hands-on experience across enterprise environments.",
+    "hero.cta1":    "Get in touch",
+    "hero.cta2":    "View experience",
+
+    "about.heading":"Who I am",
+    "about.p1":     "I'm an aspiring Cybersecurity Analyst based in <strong>Salt Lake City, Utah</strong>, currently completing a Bachelor's in Cybersecurity at Ensign College.",
+    "about.p2":     "My experience spans <strong>SOC operations</strong>, network monitoring, datacenter management, and tier-2 technical support — with a focus on building systems that are resilient, well-documented, and secure.",
+    "about.p3":     "Originally from <strong>São Paulo, Brazil</strong>, I bring a multicultural perspective and fluency in Portuguese, English, and Spanish to every team I join.",
+    "about.p4":     "Outside of work, I've led teams of missionaries across Brazil, served as a ward clerk, and competed in the National Cyber League.",
+    "about.lang1":  "Portuguese — Native",
+    "about.lang2":  "English — Professional",
+    "about.lang3":  "Spanish — Fluent",
+    "about.lang4":  "Italian — Elementary",
+    "about.stat1":  "Years in IT & Cybersecurity",
+    "about.stat2":  "IT assets managed",
+    "about.stat3":  "Dell servers managed",
+    "about.stat4":  "Languages spoken",
+
+    "skills.heading":       "Tools & expertise",
+    "skills.cat1.title":    "Cybersecurity & SIEM",
+    "skills.cat1.ir":       "Incident response",
+    "skills.cat1.ra":       "Risk assessment",
+    "skills.cat1.pb":       "Playbook creation",
+    "skills.cat2.title":    "Networks & Systems",
+    "skills.cat2.vpn":      "VPN & network connectivity",
+    "skills.cat3.title":    "Infrastructure & Automation",
+    "skills.cat4.title":    "Support & ITSM",
+    "skills.cat4.sop":      "SOP & KB authoring",
+    "skills.cat4.t2":       "Tier-2 technical support",
+    "skills.cat5.title":    "Development & Data",
+    "skills.cat6.title":    "Soft Skills",
+    "skills.cat6.lead":     "Team leadership",
+    "skills.cat6.cs":       "Customer service",
+    "skills.cat6.doc":      "Technical documentation",
+    "skills.cat6.col":      "Cross-team collaboration",
+    "skills.cat6.dm":       "Decision-making",
+    "skills.cat6.ml":       "Multilingual communication",
+
+    "exp.heading":   "Work history",
+    "exp.present":   "Present",
+    "exp.job1.title":"Technical Support Specialist (Intern)",
+    "exp.job1.b1":   "Delivered tier-2 technical support via tickets, email, phone, and forums for S&I software products",
+    "exp.job1.b2":   "Collaborated with PMs and developers to relay feedback, report bugs, and suggest improvements",
+    "exp.job1.b3":   "Created and maintained support content on the S&I Support website",
+    "exp.job1.b4":   "Used software development tracking systems to contribute to product improvement",
+    "exp.job2.title":"Associate Lab Manager — NOC Technician",
+    "exp.job2.b1":   "Monitored and maintained Linux/Windows servers; configured DNS, DHCP, and Active Directory",
+    "exp.job2.b2":   "Built infrastructure automation with Terraform, Packer, and Ansible",
+    "exp.job2.b3":   "Managed $500k in IT assets including 49 Dell servers; authored SOPs and KB articles",
+    "exp.job2.b4":   "Supported SIEM operations (Wazuh); contributed to AI and Kubernetes projects",
+    "exp.job2.b5":   "Created Power BI dashboards for executive reporting",
+    "exp.job3.title":"Global Support Tech Generalist",
+    "exp.job3.b1":   "First point of contact for global users via phone, email, and live chat",
+    "exp.job3.b2":   "Troubleshot network connectivity, VPN, and IP configuration for remote employees",
+    "exp.job3.b3":   "Used Active Directory to restore user access; maintained detailed CRM records",
+    "exp.job3.b4":   "Escalated complex issues and developed productive customer relationships",
+    "exp.job4.title":"Associate Lab Manager — SOC Practitioner",
+    "exp.job4.b1":   "Monitored SIEM systems (Wazuh) to detect and respond to cybersecurity threats",
+    "exp.job4.b2":   "Created filters, playbooks, and incident reports for suspicious activities",
+    "exp.job4.b3":   "Installed and configured Suricata and Wazuh for HIDS/NIDS monitoring",
+    "exp.job4.b4":   "Coordinated real incident response with supervisors and technical teams",
+    "exp.job4.b5":   "Developed response plans and contributed to continuous security improvements",
+    "exp.job5.title":"IT Generalist Intern",
+    "exp.job5.b1":   "Provided technical support covering web development and database maintenance (SQL, PostgreSQL)",
+    "exp.job5.b2":   "Assisted users with HTML/CSS challenges and Delphi programming issues",
+    "exp.job6.title":"Full-Time Missionary & Team Leader",
+    "exp.job6.b1":   "Led teams as District Leader, Zone Leader, and Assistant to the Mission President",
+    "exp.job6.b2":   "Managed logistics, immigration, and health coordination for missionaries",
+
+    "certs.heading": "Credentials",
+    "certs.cysa":    "Cert Prep: Compliance & Assessment",
+    "certs.sscp":    "Cert Prep: Incident Response & Recovery",
+    "certs.de":      "Foundations of Detection Engineering",
+
+    "edu.heading":   "Academic background",
+    "edu.deg1":      "Bachelor of Applied Science",
+    "edu.deg2":      "Associate of Applied Science",
+    "edu.deg3":      "Certificate",
+    "edu.cert":      "Technical Support Engineer",
+    "edu.deg4":      "Bachelor of Business Administration",
+    "edu.bba":       "Business Administration & Management",
+
+    "contact.heading":"Let's connect",
+    "contact.sub":    "Open to part-time cybersecurity opportunities and collaborations.",
+    "contact.email":  "✉ johannes.francesco@outlook.com",
+    "contact.linkedin":"LinkedIn Profile",
+  },
+
+  pt: {
+    "nav.about":      "Sobre",
+    "nav.skills":     "Habilidades",
+    "nav.experience": "Experiência",
+    "nav.certs":      "Certificações",
+    "nav.education":  "Formação",
+    "nav.contact":    "Contato",
+
+    "hero.label":   "Analista de Cibersegurança",
+    "hero.subtitle":"Protegendo redes e infraestruturas digitais por meio de detecção de ameaças, operações SIEM e avaliação de riscos — com experiência prática em ambientes corporativos.",
+    "hero.cta1":    "Entre em contato",
+    "hero.cta2":    "Ver experiência",
+
+    "about.heading":"Quem sou",
+    "about.p1":     "Sou um Analista de Cibersegurança em formação, baseado em <strong>Salt Lake City, Utah</strong>, concluindo um Bacharelado em Cibersegurança no Ensign College.",
+    "about.p2":     "Minha experiência abrange <strong>operações de SOC</strong>, monitoramento de redes, gerenciamento de datacenter e suporte técnico nível 2 — com foco em construir sistemas resilientes, bem documentados e seguros.",
+    "about.p3":     "Nascido em <strong>São Paulo, Brasil</strong>, trago uma perspectiva multicultural e fluência em português, inglês e espanhol para cada equipe que faço parte.",
+    "about.p4":     "Fora do trabalho, já liderei equipes de missionários pelo Brasil, atuei como secretário de ala e participei da National Cyber League.",
+    "about.lang1":  "Português — Nativo",
+    "about.lang2":  "Inglês — Profissional",
+    "about.lang3":  "Espanhol — Fluente",
+    "about.lang4":  "Italiano — Básico",
+    "about.stat1":  "Anos em TI & Cibersegurança",
+    "about.stat2":  "Ativos de TI gerenciados",
+    "about.stat3":  "Servidores Dell gerenciados",
+    "about.stat4":  "Idiomas falados",
+
+    "skills.heading":       "Ferramentas & expertise",
+    "skills.cat1.title":    "Cibersegurança & SIEM",
+    "skills.cat1.ir":       "Resposta a incidentes",
+    "skills.cat1.ra":       "Avaliação de riscos",
+    "skills.cat1.pb":       "Criação de playbooks",
+    "skills.cat2.title":    "Redes & Sistemas",
+    "skills.cat2.vpn":      "VPN & conectividade de rede",
+    "skills.cat3.title":    "Infraestrutura & Automação",
+    "skills.cat4.title":    "Suporte & ITSM",
+    "skills.cat4.sop":      "Criação de SOPs & KBs",
+    "skills.cat4.t2":       "Suporte técnico nível 2",
+    "skills.cat5.title":    "Desenvolvimento & Dados",
+    "skills.cat6.title":    "Habilidades Interpessoais",
+    "skills.cat6.lead":     "Liderança de equipes",
+    "skills.cat6.cs":       "Atendimento ao cliente",
+    "skills.cat6.doc":      "Documentação técnica",
+    "skills.cat6.col":      "Colaboração interdepartamental",
+    "skills.cat6.dm":       "Tomada de decisão",
+    "skills.cat6.ml":       "Comunicação multilíngue",
+
+    "exp.heading":   "Histórico profissional",
+    "exp.present":   "Presente",
+    "exp.job1.title":"Especialista de Suporte Técnico (Estágio)",
+    "exp.job1.b1":   "Ofereci suporte técnico nível 2 por tickets, e-mail, telefone e fóruns para produtos de software de Seminários & Institutos",
+    "exp.job1.b2":   "Colaborei com gerentes de produto e desenvolvedores para repassar feedback, reportar bugs e sugerir melhorias",
+    "exp.job1.b3":   "Criei e mantive conteúdo de suporte no site da S&I",
+    "exp.job1.b4":   "Utilizei sistemas de rastreamento de desenvolvimento para contribuir com a melhoria contínua dos produtos",
+    "exp.job2.title":"Gerente Associado de Lab — Técnico NOC",
+    "exp.job2.b1":   "Monitorei e mantive servidores Linux/Windows; configurei DNS, DHCP e Active Directory",
+    "exp.job2.b2":   "Construí automação de infraestrutura com Terraform, Packer e Ansible",
+    "exp.job2.b3":   "Gerenciei $500k em ativos de TI, incluindo 49 servidores Dell; criei SOPs e artigos de KB",
+    "exp.job2.b4":   "Apoiei operações de SIEM (Wazuh); contribuí com projetos de IA e Kubernetes",
+    "exp.job2.b5":   "Criei dashboards no Power BI para relatórios executivos",
+    "exp.job3.title":"Generalista de Suporte Técnico Global",
+    "exp.job3.b1":   "Principal ponto de contato para usuários globais por telefone, e-mail e chat",
+    "exp.job3.b2":   "Solucionei problemas de conectividade de rede, VPN e configurações de IP para funcionários remotos",
+    "exp.job3.b3":   "Utilizei o Active Directory para restaurar acessos; mantive registros detalhados no CRM",
+    "exp.job3.b4":   "Escalei problemas complexos e desenvolvi relacionamentos produtivos com clientes",
+    "exp.job4.title":"Gerente Associado de Lab — Praticante SOC",
+    "exp.job4.b1":   "Monitorei sistemas SIEM (Wazuh) para detectar e responder a ameaças de cibersegurança",
+    "exp.job4.b2":   "Criei filtros, playbooks e relatórios de incidentes para atividades suspeitas",
+    "exp.job4.b3":   "Instalei e configurei Suricata e Wazuh para monitoramento HIDS/NIDS",
+    "exp.job4.b4":   "Coordenei resposta a incidentes reais com supervisores e equipes técnicas",
+    "exp.job4.b5":   "Desenvolvi planos de resposta e contribuí para melhorias contínuas de segurança",
+    "exp.job5.title":"Estagiário de TI Generalista",
+    "exp.job5.b1":   "Forneci suporte técnico em desenvolvimento web e manutenção de banco de dados (SQL, PostgreSQL)",
+    "exp.job5.b2":   "Auxiliei usuários com desafios de HTML/CSS e programação em Delphi",
+    "exp.job6.title":"Missionário de Tempo Integral & Líder de Equipe",
+    "exp.job6.b1":   "Liderei equipes como Líder de Distrito, Líder de Zona e Assistente ao Presidente de Missão",
+    "exp.job6.b2":   "Gerenciei logística, imigração e coordenação de saúde para missionários",
+
+    "certs.heading": "Credenciais",
+    "certs.cysa":    "Prep. Certificação: Conformidade & Avaliação",
+    "certs.sscp":    "Prep. Certificação: Resposta a Incidentes & Recuperação",
+    "certs.de":      "Fundamentos de Engenharia de Detecção",
+
+    "edu.heading":   "Formação acadêmica",
+    "edu.deg1":      "Bacharelado em Ciência Aplicada",
+    "edu.deg2":      "Tecnólogo em Ciência Aplicada",
+    "edu.deg3":      "Certificado",
+    "edu.cert":      "Engenheiro de Suporte Técnico",
+    "edu.deg4":      "Bacharelado em Administração de Empresas",
+    "edu.bba":       "Administração de Empresas & Gestão",
+
+    "contact.heading":"Vamos nos conectar",
+    "contact.sub":    "Aberto a oportunidades part-time em cibersegurança e colaborações.",
+    "contact.email":  "✉ johannes.francesco@outlook.com",
+    "contact.linkedin":"Perfil no LinkedIn",
+  },
+
+  es: {
+    "nav.about":      "Sobre mí",
+    "nav.skills":     "Habilidades",
+    "nav.experience": "Experiencia",
+    "nav.certs":      "Certificaciones",
+    "nav.education":  "Formación",
+    "nav.contact":    "Contacto",
+
+    "hero.label":   "Analista de Ciberseguridad",
+    "hero.subtitle":"Protegiendo redes e infraestructuras digitales mediante detección de amenazas, operaciones SIEM y evaluación de riesgos — con experiencia práctica en entornos empresariales.",
+    "hero.cta1":    "Contáctame",
+    "hero.cta2":    "Ver experiencia",
+
+    "about.heading":"Quién soy",
+    "about.p1":     "Soy un Analista de Ciberseguridad en formación, ubicado en <strong>Salt Lake City, Utah</strong>, actualmente completando una Licenciatura en Ciberseguridad en Ensign College.",
+    "about.p2":     "Mi experiencia abarca <strong>operaciones de SOC</strong>, monitoreo de redes, gestión de centros de datos y soporte técnico de nivel 2 — con enfoque en sistemas resilientes, bien documentados y seguros.",
+    "about.p3":     "Originario de <strong>São Paulo, Brasil</strong>, aporto una perspectiva multicultural y fluidez en portugués, inglés y español a cada equipo del que formo parte.",
+    "about.p4":     "Fuera del trabajo, he liderado equipos de misioneros en Brasil, servido como secretario de barrio y competido en la National Cyber League.",
+    "about.lang1":  "Portugués — Nativo",
+    "about.lang2":  "Inglés — Profesional",
+    "about.lang3":  "Español — Fluido",
+    "about.lang4":  "Italiano — Básico",
+    "about.stat1":  "Años en TI & Ciberseguridad",
+    "about.stat2":  "Activos de TI gestionados",
+    "about.stat3":  "Servidores Dell gestionados",
+    "about.stat4":  "Idiomas hablados",
+
+    "skills.heading":       "Herramientas & expertise",
+    "skills.cat1.title":    "Ciberseguridad & SIEM",
+    "skills.cat1.ir":       "Respuesta a incidentes",
+    "skills.cat1.ra":       "Evaluación de riesgos",
+    "skills.cat1.pb":       "Creación de playbooks",
+    "skills.cat2.title":    "Redes & Sistemas",
+    "skills.cat2.vpn":      "VPN & conectividad de red",
+    "skills.cat3.title":    "Infraestructura & Automatización",
+    "skills.cat4.title":    "Soporte & ITSM",
+    "skills.cat4.sop":      "Redacción de SOPs & KBs",
+    "skills.cat4.t2":       "Soporte técnico nivel 2",
+    "skills.cat5.title":    "Desarrollo & Datos",
+    "skills.cat6.title":    "Habilidades Blandas",
+    "skills.cat6.lead":     "Liderazgo de equipos",
+    "skills.cat6.cs":       "Atención al cliente",
+    "skills.cat6.doc":      "Documentación técnica",
+    "skills.cat6.col":      "Colaboración interdepartamental",
+    "skills.cat6.dm":       "Toma de decisiones",
+    "skills.cat6.ml":       "Comunicación multilingüe",
+
+    "exp.heading":   "Historial laboral",
+    "exp.present":   "Presente",
+    "exp.job1.title":"Especialista de Soporte Técnico (Pasante)",
+    "exp.job1.b1":   "Brindé soporte técnico nivel 2 por tickets, correo, teléfono y foros para productos de software de S&I",
+    "exp.job1.b2":   "Colaboré con PMs y desarrolladores para transmitir retroalimentación, reportar errores y sugerir mejoras",
+    "exp.job1.b3":   "Creé y mantuve contenido de soporte en el sitio web de S&I",
+    "exp.job1.b4":   "Utilicé sistemas de seguimiento de desarrollo para contribuir a la mejora continua de productos",
+    "exp.job2.title":"Gerente Asociado de Lab — Técnico NOC",
+    "exp.job2.b1":   "Monitoreé y mantuve servidores Linux/Windows; configuré DNS, DHCP y Active Directory",
+    "exp.job2.b2":   "Construí automatización de infraestructura con Terraform, Packer y Ansible",
+    "exp.job2.b3":   "Gestioné $500k en activos de TI, incluyendo 49 servidores Dell; redacté SOPs y artículos de KB",
+    "exp.job2.b4":   "Apoyé operaciones SIEM (Wazuh); contribuí a proyectos de IA y Kubernetes",
+    "exp.job2.b5":   "Creé dashboards en Power BI para reportes ejecutivos",
+    "exp.job3.title":"Generalista de Soporte Técnico Global",
+    "exp.job3.b1":   "Principal punto de contacto para usuarios globales por teléfono, correo y chat",
+    "exp.job3.b2":   "Resolví problemas de conectividad de red, VPN y configuraciones de IP para empleados remotos",
+    "exp.job3.b3":   "Utilicé Active Directory para restablecer accesos; mantuve registros detallados en CRM",
+    "exp.job3.b4":   "Escalé problemas complejos y desarrollé relaciones productivas con clientes",
+    "exp.job4.title":"Gerente Asociado de Lab — Practicante SOC",
+    "exp.job4.b1":   "Monitoreé sistemas SIEM (Wazuh) para detectar y responder a amenazas de ciberseguridad",
+    "exp.job4.b2":   "Creé filtros, playbooks e informes de incidentes para actividades sospechosas",
+    "exp.job4.b3":   "Instalé y configuré Suricata y Wazuh para monitoreo HIDS/NIDS",
+    "exp.job4.b4":   "Coordiné respuesta a incidentes reales con supervisores y equipos técnicos",
+    "exp.job4.b5":   "Desarrollé planes de respuesta y contribuí a mejoras continuas de seguridad",
+    "exp.job5.title":"Pasante de TI Generalista",
+    "exp.job5.b1":   "Brindé soporte técnico en desarrollo web y mantenimiento de bases de datos (SQL, PostgreSQL)",
+    "exp.job5.b2":   "Ayudé a usuarios con desafíos de HTML/CSS y programación en Delphi",
+    "exp.job6.title":"Misionero de Tiempo Completo & Líder de Equipo",
+    "exp.job6.b1":   "Lideré equipos como Líder de Distrito, Líder de Zona y Asistente al Presidente de Misión",
+    "exp.job6.b2":   "Gestioné logística, inmigración y coordinación de salud para misioneros",
+
+    "certs.heading": "Credenciales",
+    "certs.cysa":    "Prep. Certificación: Cumplimiento & Evaluación",
+    "certs.sscp":    "Prep. Certificación: Respuesta a Incidentes & Recuperación",
+    "certs.de":      "Fundamentos de Ingeniería de Detección",
+
+    "edu.heading":   "Formación académica",
+    "edu.deg1":      "Licenciatura en Ciencias Aplicadas",
+    "edu.deg2":      "Técnico en Ciencias Aplicadas",
+    "edu.deg3":      "Certificado",
+    "edu.cert":      "Ingeniero de Soporte Técnico",
+    "edu.deg4":      "Licenciatura en Administración de Empresas",
+    "edu.bba":       "Administración de Empresas & Gestión",
+
+    "contact.heading":"Conectemos",
+    "contact.sub":    "Abierto a oportunidades part-time en ciberseguridad y colaboraciones.",
+    "contact.email":  "✉ johannes.francesco@outlook.com",
+    "contact.linkedin":"Perfil en LinkedIn",
+  }
+};
+
+// ── ENGINE ── (do not edit below unless adding a new feature)
+let currentLang = localStorage.getItem('lang') || 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  const t = translations[lang];
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) {
+      // use innerHTML to allow <strong> tags in about paragraphs
+      el.innerHTML = t[key];
+    }
   });
+
+  // update <html lang> for accessibility
+  document.documentElement.lang = lang;
+
+  // update page title
+  const titles = { en: 'Johannes Castellano — Cybersecurity Analyst', pt: 'Johannes Castellano — Analista de Cibersegurança', es: 'Johannes Castellano — Analista de Ciberseguridad' };
+  document.title = titles[lang];
+
+  // update active button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+  });
+
+  // re-append cursor to hero label (innerHTML wipes it)
+  const label = document.querySelector('.hero-label');
+  if (label && !label.querySelector('.cursor')) {
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    label.appendChild(cursor);
+  }
+}
+
+// scroll-reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.skill-card, .timeline-item, .cert-card, .edu-card, .stat').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+
+// init
+setLang(currentLang);
 </script>
 </body>
 </html>
