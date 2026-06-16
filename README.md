@@ -12,13 +12,14 @@ Supports **English, Portuguese, and Spanish** with a one-click language switcher
 ```
 /
 ├── index.html        ← Entire site (HTML + CSS + JS, all-in-one)
+├── admin.html        ← Local tool: generates translated experience blocks
 ├── README.md         ← This file
+├── ADMIN.md          ← Documentation for the admin tool
 └── CHANGELOG.md      ← History of updates
 ```
 
-This project is intentionally kept as a **single file** (`index.html`) to make
-hosting, editing, and version control as simple as possible. No build tools,
-no dependencies, no Node.js required.
+This project is intentionally kept as **plain HTML files** — no build tools,
+no Node.js, no dependencies. Everything runs in the browser.
 
 ---
 
@@ -32,31 +33,50 @@ To enable GitHub Pages on a new repo:
 3. Branch: `main` / `root`
 4. Save — your site will be live at `https://YOUR-USERNAME.github.io` within ~2 minutes
 
+> `admin.html` will also be publicly accessible at `/admin.html`. It is harmless
+> (read-only, no credentials, no repo access), but if you prefer to keep it private,
+> add it to `.gitignore` and run it only locally.
+
 ---
 
-## ✏️ How to update content
+## ✏️ How to add a new experience entry (recommended workflow)
 
-### Option A — Edit directly on GitHub (recommended for small edits)
+Use the **admin tool** so you never have to write HTML manually:
+
+1. Open `admin.html` in your browser (double-click or use a local server)
+2. Fill in the job title, org, dates, and bullet points in English
+3. Click **Translate & Generate** — it auto-translates to PT and ES
+4. Copy the **Full block** output
+5. Paste the HTML into `index.html` inside `<div class="timeline">` (top = most recent)
+6. Paste the translation keys into the `translations` object in `index.html`
+7. Review the auto-translations, fix if needed, commit
+
+See `ADMIN.md` for full details on the admin tool.
+
+---
+
+## ✏️ How to update other content
+
+### Small edits — directly on GitHub
 1. Open `index.html` on GitHub
 2. Click the pencil icon (Edit)
 3. Make your changes
 4. Click **Commit changes** → the site updates in ~2 min
 
-### Option B — Edit locally
+### Larger edits — locally
 ```bash
 git clone https://github.com/YOUR-USERNAME/YOUR-USERNAME.github.io
-# edit index.html with any text editor
-git add index.html
+# edit files
+git add .
 git commit -m "update: added new certification"
 git push
 ```
 
 ---
 
-## 🌍 Adding or editing translations
+## 🌍 How translations work
 
-All translations live inside the `translations` object near the bottom of
-`index.html`, structured as:
+All translations live inside the `translations` object at the bottom of `index.html`:
 
 ```js
 const translations = {
@@ -66,28 +86,14 @@ const translations = {
 }
 ```
 
-### To update a translation
-Find the key you want (e.g. `"contact.sub"`) and update its value in the
-relevant language object.
+Every HTML element that should change language has a `data-i18n="key"` attribute.
+The `setLang()` function swaps all text at once. Language preference is saved to
+`localStorage` so returning visitors see their last-used language.
 
 ### To add a new language (e.g. French)
-1. Copy the entire `en: { ... }` block
-2. Paste it below `es: { ... }` with the key `fr`
-3. Translate every value string
-4. Add a button in the `<div class="lang-switcher">` section:
-   ```html
-   <button class="lang-btn" onclick="setLang('fr')">FR</button>
-   ```
-
-### To mark an HTML element as translatable
-Add a `data-i18n="your.key"` attribute:
-```html
-<p data-i18n="your.key">Default text</p>
-```
-Then add `"your.key": "Translation"` to each language object.
-
-> ⚠️ Note: `innerHTML` is used for translation injection, which allows `<strong>` tags.
-> Only use this for trusted content — never inject user-supplied text this way.
+1. Copy the `en: { ... }` block, paste as `fr: { ... }`, translate all values
+2. Add a button to the nav: `<button class="lang-btn" onclick="setLang('fr')">FR</button>`
+3. Add the language to the `titles` object inside `setLang()`
 
 ---
 
@@ -101,44 +107,47 @@ Then add `"your.key": "Translation"` to each language object.
 | CSS variables | Easy to retheme; just update `:root` |
 | `localStorage` for language | Remembers user preference across sessions |
 | IntersectionObserver | Scroll-reveal animations without libraries |
+| Free translation APIs | MyMemory / LibreTranslate — no cost, no key |
 
-### To change the color accent
-Find `:root` near the top of the `<style>` block and update `--accent`:
+### To change the accent color
+Find `:root` at the top of the `<style>` block:
 ```css
 :root {
-  --accent: #38bdf8;   /* ← change this hex */
-  --accent2: #22d3a8;  /* ← and this one */
+  --accent:  #38bdf8;   /* primary accent — change this */
+  --accent2: #22d3a8;   /* secondary accent — change this */
 }
 ```
 
 ---
 
+## 📋 Checklist for common updates
+
+- [ ] **New job** → use `admin.html` to generate the block
+- [ ] **New certification** → add a `.cert-card` in the Certifications section + add keys in all 3 language objects
+- [ ] **Graduated** → update Education dates directly in `index.html`
+- [ ] **New contact info** → update `href` on contact buttons and the matching `data-i18n` values
+- [ ] **Changed summary/bio** → update `hero.subtitle` and `about.p1–p4` in all 3 language objects
+- [ ] **After any change** → add a note to `CHANGELOG.md`
+
+---
+
 ## 🔮 Future project ideas
 
-If you add new projects to this site, consider this structure:
+To expand this into a multi-project portfolio:
 
 ```
 /
 ├── index.html              ← Main portfolio
+├── admin.html              ← Admin tool (local use)
 ├── projects/
 │   ├── soc-dashboard/
 │   │   └── index.html
-│   └── threat-map/
+│   └── grc-tracker/
 │       └── index.html
 └── README.md
 ```
 
-Link from the main portfolio with a "Projects" nav item and a new section in `index.html`.
-
----
-
-## 📋 Checklist for common updates
-
-- [ ] **New job** → add a `.timeline-item` block in the Experience section + update all 3 language objects
-- [ ] **New certification** → add a `.cert-card` in the Certifications section + translate `certs.heading` if needed
-- [ ] **Graduated** → update the Education section dates
-- [ ] **New contact info** → update `href` on the contact buttons (both the attribute and the `data-i18n` value)
-- [ ] **Changed objective/summary** → update `hero.subtitle` and `about.p1–p4` in all 3 languages
+Add a "Projects" nav link and a new section in `index.html` with cards linking to each project subfolder.
 
 ---
 
@@ -146,6 +155,7 @@ Link from the main portfolio with a "Projects" nav item and a new section in `in
 
 - Vanilla HTML, CSS, JavaScript — no frameworks
 - [DM Serif Display](https://fonts.google.com/specimen/DM+Serif+Display) + [Inter](https://fonts.google.com/specimen/Inter) via Google Fonts
+- [MyMemory API](https://mymemory.translated.net) for auto-translation (free)
 - GitHub Pages for hosting
 
 ---
