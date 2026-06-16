@@ -5,7 +5,7 @@ Format: `## [YYYY-MM-DD] — Short description`
 
 ---
 
-## [2025] — Admin tool + auto-translation
+## [2026 - June] — Admin tool + auto-translation
 
 ### Added
 - `admin.html` — local Experience Block Generator
@@ -21,7 +21,7 @@ Format: `## [YYYY-MM-DD] — Short description`
 
 ---
 
-## [2025] — Initial release
+## [2026 - April] — Initial release
 
 ### Added
 - Single-page portfolio launched on GitHub Pages
