@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Admin — Experience Block Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0a0e14;
+    --surface:  #111720;
+    --surface2: #161d28;
+    --border:   rgba(100,180,255,0.12);
+    --accent:   #38bdf8;
+    --accent2:  #22d3a8;
+    --text:     #e2eaf4;
+    --muted:    #7a95b0;
+    --dim:      #3d5166;
+    --ok:       #22d3a8;
+    --warn:     #f97316;
+    --error:    #f87171;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 860px; margin: 0 auto; }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  header p { font-size: 0.85rem; color: var(--muted); }
+
+  /* ── FORM ── */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field.full { grid-column: 1 / -1; }
+
+  label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent2);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hint {
+    font-size: 0.72rem;
+    color: var(--dim);
+    margin-top: -0.2rem;
+  }
+
+  input, textarea, select {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 300;
+    padding: 0.6rem 0.9rem;
+    transition: border-color 0.2s;
+    width: 100%;
+    outline: none;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+  }
+
+  textarea { resize: vertical; min-height: 100px; }
+
+  select option { background: var(--surface); }
+
+  /* ── BULLETS MANAGER ── */
+  .bullets-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .bullet-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .bullet-row input { flex: 1; }
+
+  .btn-icon {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.45rem 0.65rem;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .btn-icon:hover { border-color: var(--error); color: var(--error); }
+
+  .btn-add {
+    background: transparent;
+    border: 1px dashed var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 1rem;
+    transition: all 0.15s;
+    width: 100%;
+    text-align: left;
+  }
+
+  .btn-add:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  /* ── ACTIONS ── */
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.7rem 1.5rem;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary { background: var(--accent); color: #0a0e14; }
+  .btn-primary:hover { background: #7dd3fc; }
+  .btn-primary:disabled { background: var(--dim); color: var(--muted); cursor: not-allowed; }
+
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── STATUS ── */
+  .status-bar {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .status-bar.show { display: flex; }
+  .status-bar.loading { background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.2); color: var(--accent); }
+  .status-bar.success { background: rgba(34,211,168,0.08); border: 1px solid rgba(34,211,168,0.2); color: var(--ok); }
+  .status-bar.error   { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); color: var(--error); }
+
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid var(--dim);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── OUTPUT ── */
+  .output-section {
+    margin-top: 2.5rem;
+    display: none;
+  }
+
+  .output-section.show { display: block; }
+
+  .output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .output-header h2 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.25rem;
+  }
+
+  .tab {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 3px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.05em;
+  }
+
+  .tab.active { background: var(--accent); color: #0a0e14; }
+
+  .output-pane { display: none; }
+  .output-pane.active { display: block; }
+
+  .code-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .copy-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.3rem 0.6rem;
+    transition: all 0.15s;
+    letter-spacing: 0.05em;
+  }
+
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .copy-btn.copied { border-color: var(--ok); color: var(--ok); }
+
+  /* ── INSTRUCTIONS ── */
+  .instructions {
+    margin-top: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.25rem 1.5rem;
+  }
+
+  .instructions h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .step {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    color: var(--accent);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8em;
+    background: var(--surface2);
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    color: var(--accent2);
+  }
+
+  /* ── TRANSLATION QUALITY NOTE ── */
+  .quality-note {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: rgba(249,115,22,0.06);
+    border: 1px solid rgba(249,115,22,0.2);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--warn);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--dim);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 1.25rem; }
+    .form-grid { grid-template-columns: 1fr; }
+    .field.full { grid-column: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="logo">JC./ portfolio admin</div>
+    <h1>Experience Block Generator</h1>
+    <p>Fill in the details below → auto-translate to PT & ES → copy the HTML block into <code>index.html</code></p>
+  </header>
+
+  <!-- FORM -->
+  <div class="form-grid">
+
+    <div class="field">
+      <label>Job title (EN)</label>
+      <input type="text" id="title" placeholder="e.g. GRC Engineer Intern">
+    </div>
+
+    <div class="field">
+      <label>Employment type</label>
+      <select id="emptype">
+        <option value="">— optional —</option>
+        <option value="Full-time">Full-time</option>
+        <option value="Part-time">Part-time</option>
+        <option value="Intern">Intern</option>
+        <option value="Contract">Contract</option>
+        <option value="Freelance">Freelance</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Organization</label>
+      <input type="text" id="org" placeholder="e.g. Filevine">
+    </div>
+
+    <div class="field">
+      <label>Location</label>
+      <input type="text" id="location" placeholder="e.g. Salt Lake City, UT">
+    </div>
+
+    <div class="field">
+      <label>Start date</label>
+      <input type="text" id="startdate" placeholder="e.g. Jan 2026">
+    </div>
+
+    <div class="field">
+      <label>End date</label>
+      <input type="text" id="enddate" placeholder="Leave blank if current role">
+      <span class="hint">Leave blank → shows "Present" in each language</span>
+    </div>
+
+    <div class="field full">
+      <label>Bullet points (English) — what did you do?</label>
+      <span class="hint">Write each bullet in English. They will be translated automatically.</span>
+      <div class="bullets-list" id="bullets-list">
+        <div class="bullet-row">
+          <input type="text" class="bullet-input" placeholder="e.g. Conducted GRC assessments aligned with NIST CSF and ISO 27001">
+          <button class="btn-icon" onclick="removeBullet(this)" title="Remove">×</button>
+        </div>
+      </div>
+      <button class="btn-add" onclick="addBullet()">+ Add bullet</button>
+    </div>
+
+    <div class="field full">
+      <label>Translation service</label>
+      <select id="translation-api">
+        <option value="mymemory">MyMemory (free, no key needed)</option>
+        <option value="libretranslate">LibreTranslate (free, open source)</option>
+      </select>
+      <span class="hint">MyMemory: ~5,000 words/day free. LibreTranslate: unlimited but slower.</span>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" id="generate-btn" onclick="generate()">
+      ⚡ Translate &amp; Generate
+    </button>
+    <button class="btn btn-outline" onclick="clearForm()">Clear form</button>
+  </div>
+
+  <div class="status-bar" id="status">
+    <div class="spinner" id="spinner"></div>
+    <span id="status-text"></span>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="output-section" id="output-section">
+
+    <div class="output-header">
+      <h2>// Generated block</h2>
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('preview')">Preview</button>
+        <button class="tab" onclick="switchTab('en')">EN HTML</button>
+        <button class="tab" onclick="switchTab('pt')">PT HTML</button>
+        <button class="tab" onclick="switchTab('es')">ES HTML</button>
+        <button class="tab" onclick="switchTab('full')">Full block</button>
+      </div>
+    </div>
+
+    <!-- Preview -->
+    <div class="output-pane active" id="pane-preview">
+      <div id="preview-render" style="
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 2rem;
+        position: relative;
+        padding-left: 4rem;
+        border-left: 1px solid rgba(56,189,248,0.3);
+      "></div>
+    </div>
+
+    <!-- EN HTML -->
+    <div class="output-pane" id="pane-en">
+      <div class="code-block" id="code-en">
+        <button class="copy-btn" onclick="copyCode('code-en', this)">copy</button>
+      </div>
+    </div>
+
+    <!-- PT HTML -->
+    <div class="output-pane" id="pane-pt">
+      <div class="code-block" id="code-pt">
+        <button class="copy-btn" onclick="copyCode('code-pt', this)">copy</button>
+      </div>
+    </div>
+
+    <!-- ES HTML -->
+    <div class="output-pane" id="pane-es">
+      <div class="code-block" id="code-es">
+        <button class="copy-btn" onclick="copyCode('code-es', this)">copy</button>
+      </div>
+    </div>
+
+    <!-- Full block (all 3 languages ready to paste) -->
+    <div class="output-pane" id="pane-full">
+      <div class="code-block" id="code-full">
+        <button class="copy-btn" onclick="copyCode('code-full', this)">copy</button>
+      </div>
+    </div>
+
+    <div class="quality-note" id="quality-note"></div>
+
+    <div class="instructions">
+      <h3>How to add this to your portfolio</h3>
+      <div class="step">
+        <span class="step-num">01</span>
+        <span>Copy the <strong>Full block</strong> tab above — it contains the HTML with translation keys for all 3 languages already wired in.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <span>Open <code>index.html</code> on GitHub. Find the <code>&lt;!-- EXPERIENCE --&gt;</code> section and locate the <code>&lt;div class="timeline"&gt;</code> opening tag.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <span>Paste the block <strong>right after</strong> <code>&lt;div class="timeline"&gt;</code> — it will appear at the top of your timeline (most recent first).</span>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <span>Scroll down to the <code>translations</code> object in the <code>&lt;script&gt;</code> section. Paste the PT and ES translation strings into their respective language objects.</span>
+      </div>
+      <div class="step">
+        <span class="step-num">05</span>
+        <span>Commit the changes. The site updates in ~2 minutes. Review the PT and ES translations — auto-translation is a draft, not final copy.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>JC./ portfolio admin tool</span>
+    <span>translations via MyMemory / LibreTranslate</span>
+  </footer>
+
+</div>
+
+<script>
+// ── BULLET MANAGEMENT ──────────────────────────────────────────────────
+function addBullet() {
+  const list = document.getElementById('bullets-list');
+  const row = document.createElement('div');
+  row.className = 'bullet-row';
+  row.innerHTML = `
+    <input type="text" class="bullet-input" placeholder="Add another bullet point...">
+    <button class="btn-icon" onclick="removeBullet(this)" title="Remove">×</button>
+  `;
+  list.appendChild(row);
+  row.querySelector('input').focus();
+}
+
+function removeBullet(btn) {
+  const list = document.getElementById('bullets-list');
+  if (list.children.length > 1) {
+    btn.parentElement.remove();
+  } else {
+    btn.previousElementSibling.value = '';
+  }
+}
+
+function getBullets() {
+  return Array.from(document.querySelectorAll('.bullet-input'))
+    .map(i => i.value.trim())
+    .filter(Boolean);
+}
+
+// ── TRANSLATION ────────────────────────────────────────────────────────
+async function translateMyMemory(text, targetLang) {
+  // MyMemory API: free, no key required for low volume
+  const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  if (data.responseStatus === 200) {
+    return data.responseData.translatedText;
+  }
+  throw new Error(data.responseDetails || 'Translation failed');
+}
+
+async function translateLibre(text, targetLang) {
+  const res = await fetch('https://libretranslate.com/translate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ q: text, source: 'en', target: targetLang, format: 'text' })
+  });
+  const data = await res.json();
+  if (data.translatedText) return data.translatedText;
+  throw new Error('LibreTranslate error');
+}
+
+async function translate(text, targetLang) {
+  const api = document.getElementById('translation-api').value;
+  // MyMemory uses 'pt' for Portuguese and 'es' for Spanish
+  // LibreTranslate also uses 'pt' and 'es'
+  if (api === 'libretranslate') {
+    return translateLibre(text, targetLang);
+  }
+  return translateMyMemory(text, targetLang);
+}
+
+// ── STATUS HELPERS ─────────────────────────────────────────────────────
+function setStatus(type, msg) {
+  const bar = document.getElementById('status');
+  const text = document.getElementById('status-text');
+  const spinner = document.getElementById('spinner');
+  bar.className = `status-bar show ${type}`;
+  text.textContent = msg;
+  spinner.style.display = type === 'loading' ? 'block' : 'none';
+}
+
+function hideStatus() {
+  document.getElementById('status').className = 'status-bar';
+}
+
+// ── MAIN GENERATOR ─────────────────────────────────────────────────────
+async function generate() {
+  const title    = document.getElementById('title').value.trim();
+  const emptype  = document.getElementById('emptype').value;
+  const org      = document.getElementById('org').value.trim();
+  const location = document.getElementById('location').value.trim();
+  const startdate= document.getElementById('startdate').value.trim();
+  const enddate  = document.getElementById('enddate').value.trim();
+  const bullets  = getBullets();
+
+  if (!title || !org || !startdate || bullets.length === 0) {
+    setStatus('error', 'Please fill in: title, organization, start date, and at least one bullet.');
+    return;
+  }
+
+  const btn = document.getElementById('generate-btn');
+  btn.disabled = true;
+  setStatus('loading', 'Translating bullets to Portuguese...');
+
+  // Build display title (with employment type if set)
+  const displayTitle = emptype ? `${title} (${emptype})` : title;
+  const orgLine = location ? `${org} · ${location}` : org;
+
+  // Date line
+  const endEN = enddate || 'Present';
+  const endPT = enddate || 'Presente';
+  const endES = enddate || 'Presente';
+
+  // Generate a slug for translation keys
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').slice(0, 20)
+    + '_' + Date.now().toString(36);
+
+  try {
+    // Translate title
+    setStatus('loading', 'Translating job title...');
+    const titlePT = await translate(displayTitle, 'pt');
+    const titleES = await translate(displayTitle, 'es');
+
+    // Translate bullets
+    const bulletsPT = [];
+    const bulletsES = [];
+
+    for (let i = 0; i < bullets.length; i++) {
+      setStatus('loading', `Translating bullet ${i + 1} of ${bullets.length} to Portuguese...`);
+      bulletsPT.push(await translate(bullets[i], 'pt'));
+      setStatus('loading', `Translating bullet ${i + 1} of ${bullets.length} to Spanish...`);
+      bulletsES.push(await translate(bullets[i], 'es'));
+    }
+
+    setStatus('success', `Done — ${bullets.length} bullets translated to PT and ES.`);
+    renderOutput({ slug, displayTitle, titlePT, titleES, orgLine, startdate, endEN, endPT, endES, bullets, bulletsPT, bulletsES });
+
+  } catch (err) {
+    setStatus('error', `Translation error: ${err.message}. Try switching to the other API.`);
+  }
+
+  btn.disabled = false;
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────
+function renderOutput({ slug, displayTitle, titlePT, titleES, orgLine, startdate, endEN, endPT, endES, bullets, bulletsPT, bulletsES }) {
+
+  // ── Preview ──
+  const previewBullets = bullets.map(b =>
+    `<li style="font-size:0.9rem;color:var(--muted);display:flex;gap:0.75rem;line-height:1.5;margin-bottom:0.3rem;">
+      <span style="color:var(--dim);flex-shrink:0;">→</span>${b}</li>`
+  ).join('');
+
+  document.getElementById('preview-render').innerHTML = `
+    <div style="position:absolute;left:-6px;top:0.4rem;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg);box-shadow:0 0 0 3px rgba(56,189,248,0.2);"></div>
+    <div style="font-family:'DM Mono',monospace;font-size:0.73rem;color:var(--accent2);margin-bottom:0.4rem;">${startdate} — ${endEN}</div>
+    <div style="font-size:1.05rem;font-weight:500;color:var(--text);margin-bottom:0.2rem;">${displayTitle}</div>
+    <div style="font-size:0.85rem;color:var(--muted);font-style:italic;margin-bottom:1rem;">${orgLine}</div>
+    <ul style="list-style:none;">${previewBullets}</ul>
+  `;
+
+  // ── HTML block builders ──
+  const makeBlock = (lang, title, end, blist) => {
+    const bHTML = blist.map((b, i) =>
+      `          <li data-i18n="exp.${slug}.b${i+1}">${escHtml(b)}</li>`
+    ).join('\n');
+    return `      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">${escHtml(startdate)} — <span data-i18n="exp.present">${end}</span></div>
+        <h3 data-i18n="exp.${slug}.title">${escHtml(title)}</h3>
+        <div class="timeline-org">${escHtml(orgLine)}</div>
+        <ul class="timeline-bullets">
+${bHTML}
+        </ul>
+      </div>`;
+  };
+
+  const blockEN   = makeBlock('en', displayTitle, endEN, bullets);
+  const blockPT   = makeBlock('pt', titlePT, endPT, bulletsPT);
+  const blockES   = makeBlock('es', titleES, endES, bulletsES);
+
+  // ── Translation strings ──
+  const makeTransKeys = (lang, title, blist) => {
+    const lines = [`    "exp.${slug}.title": ${JSON.stringify(title)},`];
+    blist.forEach((b, i) => {
+      lines.push(`    "exp.${slug}.b${i+1}": ${JSON.stringify(b)},`);
+    });
+    return lines.join('\n');
+  };
+
+  const keysEN = makeTransKeys('en', displayTitle, bullets);
+  const keysPT = makeTransKeys('pt', titlePT, bulletsPT);
+  const keysES = makeTransKeys('es', titleES, bulletsES);
+
+  // ── Full combined block ──
+  const fullBlock =
+`<!-- ═══════════════════════════════════════════════════
+  NEW EXPERIENCE BLOCK — key: ${slug}
+  Generated: ${new Date().toLocaleDateString()}
+  1. Paste the HTML block into index.html inside <div class="timeline">
+  2. Paste each language's translation keys into the translations object
+═══════════════════════════════════════════════════ -->
+
+<!-- HTML BLOCK (paste inside <div class="timeline">, first child = most recent) -->
+${blockEN}
+
+<!-- ───────────────────────────────────────────────────
+  TRANSLATION KEYS — paste into the translations object
+  in index.html, inside the correct language section
+─────────────────────────────────────────────────────── -->
+
+/* EN translations — paste inside en: { ... } */
+${keysEN}
+
+/* PT translations — paste inside pt: { ... } */
+${keysPT}
+
+/* ES translations — paste inside es: { ... } */
+${keysES}`;
+
+  // ── Set code blocks ──
+  setCodeBlock('code-en', blockEN);
+  setCodeBlock('code-pt', blockPT);
+  setCodeBlock('code-es', blockES);
+  setCodeBlock('code-full', fullBlock);
+
+  // ── Quality note ──
+  document.getElementById('quality-note').textContent =
+    '⚠ Auto-translations are a draft. Review the PT and ES blocks before publishing, especially idiomatic phrases and technical job titles.';
+
+  document.getElementById('output-section').className = 'output-section show';
+  document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function setCodeBlock(id, content) {
+  const el = document.getElementById(id);
+  const btn = el.querySelector('.copy-btn');
+  // Set text content safely (not innerHTML — this is code, not HTML)
+  const text = document.createTextNode(content);
+  el.innerHTML = '';
+  el.appendChild(btn);
+  el.appendChild(text);
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── TABS ───────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.output-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('pane-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── COPY ───────────────────────────────────────────────────────────────
+function copyCode(id, btn) {
+  const el = document.getElementById(id);
+  const text = el.childNodes[el.childNodes.length - 1].textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'copied ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ── CLEAR ──────────────────────────────────────────────────────────────
+function clearForm() {
+  ['title','org','location','startdate','enddate'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('emptype').value = '';
+  document.getElementById('bullets-list').innerHTML = `
+    <div class="bullet-row">
+      <input type="text" class="bullet-input" placeholder="e.g. Conducted GRC assessments aligned with NIST CSF and ISO 27001">
+      <button class="btn-icon" onclick="removeBullet(this)" title="Remove">×</button>
+    </div>`;
+  document.getElementById('output-section').className = 'output-section';
+  hideStatus();
+}
+</script>
+</body>
+</html>
